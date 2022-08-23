@@ -7,36 +7,60 @@ import "../styles/index.css";
 //import Home from "./component/home.jsx";
 import SecondsCounter from "./component/SecondsCounter.jsx";
 
-let counter = 0;
-
- setInterval( () => {
-                    //SecondsCounter lo que hace es "decirle al DOM.Render" 
-                    //lo que quiere que muestre, en este caso seria
-                    //la funcion compleja que hicimos en el otro lado
-                    //para hacer un "Counter"
-                    // ---------------------------------------------
-                                    //Seconds es la PROPIEDAD que queremos usar en el props
-                                    //su valor es {counter} que se vera aumentada ++ cada 1 segundo
-                                    //ya que eso es lo que pusimos en el setInterval 
-                                    // ------------------------------
-                                                        // Esto supongo que lo que hace es 
-                                                        //"Colocarlo" en donde debe ir para que se muestre
-    ReactDOM.render(<SecondsCounter seconds={counter}/>, document.querySelector("#app"));
-                                    // Porque es necesario definir "counter = 0"?
-                                    // en vez de eso que pasar al hacer "seconds = 0" directamente ..?
-    counter++ ;
-} , 1000); 
+let unit = 0;
+let decenas = 0;
+let minutoUnit = 0;
+let minutoDecena = 0;
+let horaUnit = 0;
+let horaDecena = 0;
 
 
+setInterval(() => {
+            unit++;
+            if (unit > 9) {
+                unit = 0;
+                decenas++;
+                if (decenas > 5) {
+                    decenas = 0;
+                    minutoUnit++;
+                    if (minutoUnit > 9) {
+                        minutoUnit = 0;
+                        minutoDecena++
+                        if (minutoDecena++ > 5) {
+                            minutoDecena = 0;
+                            horaUnit++;
+                            if (horaUnit > 9) {
+                                horaUnit = 0;
+                                horaDecena++;
+                            }
+                        }
+                    }
+                }
+            }
 
- /* function hello(par){
-    let myVar1 = Math.trunc(par/10);
-    let myVar2 = par%10;
+            ReactDOM.render( < SecondsCounter unit = {
+                    unit
+                }
+                decenas = {
+                    decenas
+                }
+                minutoUnit = {
+                    minutoUnit
+                }
+                minutoDecena = {
+                    minutoDecena
+                }
+                horaUnit = {
+                    horaUnit
+                }
+                horaDecena = {
+                    horaDecena
+                }
 
-    console.log(myVar1);
-    console.log(myVar2);
-}
 
-const message = "Hello World"
-console.log(message)
-hello(12) */
+
+
+                />, document.querySelector("#app"));
+
+                counter++;
+            }, 1000);
